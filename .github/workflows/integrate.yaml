@@ -1,10 +1,12 @@
-name: Build single job
-  uses: Mondtic/build-jenkins-job@main
-    with:
-      jenkins-url: "http://192.168.100.158:9090/job/notificacion-slack/"
-      jenkins-token: "1196cfaf3385f01f1cbf19d20c577b10d8"
-      jenkins-user: "birc"
-      jenkins-job: "notificacion-slack"
-      jenkins-job-params: "{'stringparam': 'stringvalue', 'booleanparam': false}"
-      jenkins-wait-job: "no-wait"
-      jenkins-ssl-verify: "true"
+on: push
+name: Slack Notification Demo
+jobs:
+  slackNotification:
+    name: Slack Notification
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
